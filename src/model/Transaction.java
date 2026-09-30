@@ -8,10 +8,10 @@ public class Transaction {
     private final BigDecimal amount;
     private final TransactionType type;
     private final MoneyCategory category;
-    private final PaymentMethod paymentMethod;
+    private final Wallet wallet;
 
     public Transaction(int id, String description, BigDecimal amount, TransactionType type,
-                      MoneyCategory category, PaymentMethod paymentMethod) {
+                      MoneyCategory category, Wallet wallet) {
         if (description == null || description.isBlank()) {
             throw new IllegalArgumentException("Description cannot be empty.");
         }
@@ -24,8 +24,8 @@ public class Transaction {
         if (category == null) {
             throw new IllegalArgumentException("Category is required.");
         }
-        if (paymentMethod == null) {
-            throw new IllegalArgumentException("Payment method is required.");
+        if (wallet == null) {
+            throw new IllegalArgumentException("Wallet is required.");
         }
 
         this.id = id;
@@ -33,7 +33,7 @@ public class Transaction {
         this.amount = amount;
         this.type = type;
         this.category = category;
-        this.paymentMethod = paymentMethod;
+        this.wallet = wallet;
     }
 
     public int getId() {
@@ -56,12 +56,12 @@ public class Transaction {
         return category;
     }
 
-    public PaymentMethod getPaymentMethod() {
-        return paymentMethod;
+    public Wallet getWallet() {
+        return wallet;
     }
 
     @Override
     public String toString() {
-        return id + " | " + type + " | " + description + " | " + category + " | " + paymentMethod + " | " + amount;
+        return id + " | " + type + " | " + description + " | " + category + " | " + wallet + " | " + amount;
     }
 }

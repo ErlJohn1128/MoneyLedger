@@ -12,10 +12,12 @@ public class ConsoleDashboard {
     }
 
     public void display() {
+
+        // Calls on financeService methods to display it
         BigDecimal income = financeService.getTotalIncome();
         BigDecimal expenses = financeService.getTotalExpenses();
         BigDecimal balance = financeService.getBalance();
-
+        
         System.out.println();
         System.out.println("================================");
         System.out.println("           DASHBOARD");

@@ -26,7 +26,7 @@ public class BudgetUI {
         for (Budget budget : financeService.getBudgets()) {
             BigDecimal spent = budget.getSpent();
             BigDecimal remaining = budget.getRemaining();
-            System.out.printf("%-15s | Limit: PHP %,.2f | Spent: PHP %,.2f | Remaining: PHP %,.2f%n",
+            System.out.printf("%-15s | Limit: $ %,.2f | Spent: $ %,.2f | Remaining: $ %,.2f%n",
                     budget.getCategory(),
                     budget.getLimit(),
                     spent,

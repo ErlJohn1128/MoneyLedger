@@ -1,6 +1,6 @@
 package model;
 
-public enum PaymentMethod {
+public enum Wallet {
     CASH("Cash"),
     DEBIT_CARD("Debit Card"),
     CREDIT_CARD("Credit Card"),
@@ -8,7 +8,7 @@ public enum PaymentMethod {
 
     private final String displayName;
 
-    PaymentMethod(String displayName) {
+    Wallet(String displayName) {
         this.displayName = displayName;
     }
 

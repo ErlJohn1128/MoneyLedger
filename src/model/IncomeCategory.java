@@ -1,6 +1,10 @@
 package model;
 
+
+// This implements MoneyCategory for dynamic dispatch
 public enum IncomeCategory implements MoneyCategory {
+
+    // Types of possible income source for users
     ALLOWANCE("Allowance"),
     EARNINGS("Earnings"),
     SALARY("Salary"),
@@ -10,6 +14,7 @@ public enum IncomeCategory implements MoneyCategory {
 
     private final String displayName;
 
+    // Constructor
     IncomeCategory (String displayName) {
         this.displayName = displayName;
     }
@@ -19,6 +24,7 @@ public enum IncomeCategory implements MoneyCategory {
         return displayName;
     }
 
+    // To show Income Category not as object but rather a string
     @Override
     public String toString() {
         return displayName;

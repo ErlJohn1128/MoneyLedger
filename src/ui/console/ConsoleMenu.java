@@ -91,7 +91,7 @@ public class ConsoleMenu {
         }
 
         System.out.printf("%-4s %-18s %-10s %-12s %-15s %-10s%n",
-                "ID", "Description", "Type", "Category", "Payment", "Amount");
+                "ID", "Description", "Type", "Category", "Wallet", "Amount");
         System.out.println("---------------------------------------------------------------");
 
         for (var transaction : financeService.getTransactions()) {
@@ -101,7 +101,7 @@ public class ConsoleMenu {
                     truncate(transaction.getDescription(), 18),
                     transaction.getType(),
                     transaction.getCategory(),
-                    transaction.getPaymentMethod(),
+                    transaction.getWallet(),
                     amountText);
         }
     }

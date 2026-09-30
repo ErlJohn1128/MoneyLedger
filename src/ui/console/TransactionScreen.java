@@ -3,7 +3,7 @@ package ui.console;
 import model.ExpenseCategory;
 import model.IncomeCategory;
 import model.MoneyCategory;
-import model.PaymentMethod;
+import model.Wallet;
 import model.TransactionType;
 import service.FinanceService;
 
@@ -78,16 +78,16 @@ public class TransactionScreen {
         }
         
 
-        System.out.println("Choose payment method:");
-        for (PaymentMethod paymentMethod : PaymentMethod.values()) {
-            System.out.println((paymentMethod.ordinal() + 1) + ". " + paymentMethod.getDisplayName());
+        System.out.println("Choose wallet:");
+        for (Wallet walletMethod : Wallet.values()) {
+            System.out.println((walletMethod.ordinal() + 1) + ". " + walletMethod.getDisplayName());
         }
 
-        int paymentChoice = input.readInt("Payment method: ");
-        PaymentMethod paymentMethod;
+        int paymentChoice = input.readInt("Wallet: ");
+        Wallet paymentMethod;
 
         try {
-            paymentMethod = PaymentMethod.values()[paymentChoice - 1];
+            paymentMethod = Wallet.values()[paymentChoice - 1];
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Invalid payment method selection.");
             return;

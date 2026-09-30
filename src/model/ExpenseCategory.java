@@ -1,6 +1,9 @@
 package model;
 
+// This implements MoneyCategory for dynamic dispatch
 public enum ExpenseCategory implements MoneyCategory {
+
+    // Types of possiblie expense category for users
     FOOD("Food"),
     TRANSPORT("Transport"),
     BILLS("Bills"),
@@ -12,6 +15,7 @@ public enum ExpenseCategory implements MoneyCategory {
 
     private final String displayName;
 
+    // Constructor
     ExpenseCategory(String displayName) {
         this.displayName = displayName;
     }
@@ -21,6 +25,7 @@ public enum ExpenseCategory implements MoneyCategory {
         return displayName;
     }
 
+    // To show Expense Category not as object but rather a string
     @Override
     public String toString() {
         return displayName;
