@@ -3,6 +3,7 @@ package service;
 import model.Account;
 import model.Budget;
 import model.ExpenseCategory;
+import model.MoneyCategory;
 import model.PaymentMethod;
 import model.Transaction;
 import model.TransactionType;
@@ -24,22 +25,27 @@ public class FinanceService {
         if (transaction == null) {
             throw new IllegalArgumentException("Transaction is required.");
         }
+
         transactions.add(transaction);
 
         if (transaction.getType() == TransactionType.INCOME) {
             account.deposit(transaction.getAmount());
-        } else {
+        } 
+        else {
             account.withdraw(transaction.getAmount());
         }
 
-        for (Budget budget : budgets) {
-            if (budget.getCategory() == transaction.getCategory() && transaction.getType() == TransactionType.EXPENSE) {
-                budget.addExpense(transaction.getAmount());
+        if (transaction.getType() == TransactionType.EXPENSE && transaction.getCategory() instanceof ExpenseCategory) {
+            ExpenseCategory expenseCategory = (ExpenseCategory) transaction.getCategory();
+            for (Budget budget : budgets) {
+                if (budget.getCategory() == expenseCategory) {
+                    budget.addExpense(transaction.getAmount());
+                }
             }
         }
     }
 
-    public Transaction createTransaction(String description, BigDecimal amount, TransactionType type, ExpenseCategory category, PaymentMethod paymentMethod) {
+    public Transaction createTransaction(String description, BigDecimal amount, TransactionType type, MoneyCategory category, PaymentMethod paymentMethod) {
         Transaction transaction = new Transaction(nextId++, description, amount, type, category, paymentMethod);
         addTransaction(transaction);
         return transaction;
@@ -92,8 +98,8 @@ public class FinanceService {
     public Map<ExpenseCategory, BigDecimal> getExpensesByCategory() {
         Map<ExpenseCategory, BigDecimal> totals = new HashMap<>();
         for (Transaction transaction : transactions) {
-            if (transaction.getType() == TransactionType.EXPENSE) {
-                ExpenseCategory category = transaction.getCategory();
+            if (transaction.getType() == TransactionType.EXPENSE && transaction.getCategory() instanceof ExpenseCategory) {
+                ExpenseCategory category = (ExpenseCategory) transaction.getCategory();
                 BigDecimal current = totals.getOrDefault(category, BigDecimal.ZERO);
                 totals.put(category, current.add(transaction.getAmount()));
             }
@@ -104,7 +110,9 @@ public class FinanceService {
     public BigDecimal getCategoryTotal(ExpenseCategory category) {
         BigDecimal total = BigDecimal.ZERO;
         for (Transaction transaction : transactions) {
-            if (transaction.getType() == TransactionType.EXPENSE && transaction.getCategory() == category) {
+            if (transaction.getType() == TransactionType.EXPENSE
+                    && transaction.getCategory() instanceof ExpenseCategory
+                    && transaction.getCategory() == category) {
                 total = total.add(transaction.getAmount());
             }
         }

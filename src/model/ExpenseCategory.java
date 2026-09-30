@@ -1,6 +1,6 @@
 package model;
 
-public enum ExpenseCategory {
+public enum ExpenseCategory implements MoneyCategory {
     FOOD("Food"),
     TRANSPORT("Transport"),
     BILLS("Bills"),
@@ -16,6 +16,7 @@ public enum ExpenseCategory {
         this.displayName = displayName;
     }
 
+    @Override 
     public String getDisplayName() {
         return displayName;
     }

@@ -7,11 +7,11 @@ public class Transaction {
     private final String description;
     private final BigDecimal amount;
     private final TransactionType type;
-    private final ExpenseCategory category;
+    private final MoneyCategory category;
     private final PaymentMethod paymentMethod;
 
     public Transaction(int id, String description, BigDecimal amount, TransactionType type,
-                      ExpenseCategory category, PaymentMethod paymentMethod) {
+                      MoneyCategory category, PaymentMethod paymentMethod) {
         if (description == null || description.isBlank()) {
             throw new IllegalArgumentException("Description cannot be empty.");
         }
@@ -52,7 +52,7 @@ public class Transaction {
         return type;
     }
 
-    public ExpenseCategory getCategory() {
+    public MoneyCategory getCategory() {
         return category;
     }
 

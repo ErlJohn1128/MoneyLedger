@@ -1,6 +1,6 @@
 package model;
 
-public enum IncomeCategory {
+public enum IncomeCategory implements MoneyCategory {
     ALLOWANCE("Allowance"),
     EARNINGS("Earnings"),
     SALARY("Salary"),
@@ -14,7 +14,8 @@ public enum IncomeCategory {
         this.displayName = displayName;
     }
 
-    String getDisplayName () {
+    @Override 
+    public String getDisplayName () {
         return displayName;
     }
 

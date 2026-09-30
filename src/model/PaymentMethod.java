@@ -4,7 +4,6 @@ public enum PaymentMethod {
     CASH("Cash"),
     DEBIT_CARD("Debit Card"),
     CREDIT_CARD("Credit Card"),
-    BANK_TRANSFER("Bank Transfer"),
     DIGITAL_WALLET("Digital Wallet");
 
     private final String displayName;
