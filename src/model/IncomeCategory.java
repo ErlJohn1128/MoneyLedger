@@ -1,8 +1,8 @@
 package model;
 
 
-// This implements MoneyCategory for dynamic dispatch
-public enum IncomeCategory implements MoneyCategory {
+// This implements TransactionCategory for dynamic dispatch
+public enum IncomeCategory implements TransactionCategory {
 
     // Types of possible income source for users
     ALLOWANCE("Allowance"),

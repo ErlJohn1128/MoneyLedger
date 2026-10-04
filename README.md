@@ -18,9 +18,12 @@ ui/ contains the UI for the application, inside is console/ and gui/
 
 ### Where did I apply the lessons I learned in OOP
 
-This whole structure follows a clean design.
-1. Classes being in a package
-2. Access modifiers usage
-3. Inheritance: Can be seen inside model/, this files: ExpenseCategory.java (Child), IncomeCategory.java (Child), and MoneyCategory (Parent)
-4. It is abstracted (logics are hidden and simplified)
-5. I also do dynamic dispatch, it is through MoneyCategory. Users defines if it would be ExpenseCategory or IncomeCategory in runtime.
+- **Encapsulation:** Model fields are private, and classes such as `Account` and `Budget` validate and manage their own state.
+- **Abstraction:** `Transaction` is an abstract base class for shared transaction data and behavior contracts. `TransactionCategory` defines the shared display-name contract implemented by the category enums.
+- **Inheritance:** `IncomeTransaction` and `ExpenseTransaction` inherit their common fields and behavior from `Transaction`.
+- **Polymorphism and dynamic dispatch:** `FinanceService` stores both subclasses as `Transaction` objects and calls `applyTo(account)`. The runtime transaction subtype determines whether the account receives a deposit or withdrawal.
+- **Composition:** A transaction has a category and wallet, and the finance service works with account, transaction, and budget objects.
+
+`TransactionType` describes whether a transaction is income or expense, while `IncomeCategory` and `ExpenseCategory` describe the source or purpose. They are separate concepts; the typed transaction subclasses ensure that an income transaction cannot be created with an expense category, or vice versa.
+
+Thank you

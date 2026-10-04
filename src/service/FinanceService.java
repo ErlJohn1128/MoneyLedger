@@ -3,8 +3,9 @@ package service;
 import model.Account;
 import model.Budget;
 import model.ExpenseCategory;
+import model.ExpenseTransaction;
 import model.IncomeCategory;
-import model.MoneyCategory;
+import model.IncomeTransaction;
 import model.Wallet;
 import model.Transaction;
 import model.TransactionType;
@@ -30,20 +31,12 @@ public class FinanceService {
 
         transactions.add(transaction);
 
-        // If transaction is income, we DEPOSIT, else we WITHDRAW
-        if (transaction.getType() == TransactionType.INCOME) {
-            account.deposit(transaction.getAmount());
-        } 
-        else {
-            account.withdraw(transaction.getAmount());
-        }
+        transaction.applyTo(account);
 
         // Adds the transaction if EXPENSE to the List<Budget> 
-        if (transaction.getType() == TransactionType.EXPENSE && transaction.getCategory() instanceof ExpenseCategory) {
-            ExpenseCategory expenseCategory = (ExpenseCategory) transaction.getCategory();
-            
+        if (transaction instanceof ExpenseTransaction expenseTransaction) {
             for (Budget budget : budgets) {
-                if (budget.getCategory() == expenseCategory) {
+                if (budget.getCategory() == expenseTransaction.getCategory()) {
                     budget.addExpense(transaction.getAmount());
                 }
             }
@@ -51,9 +44,19 @@ public class FinanceService {
     }
 
     // Creates transaction, uses addTransaction as helper function
-    public Transaction createTransaction(String description, BigDecimal amount, TransactionType type, MoneyCategory category, Wallet paymentMethod) {
-        Transaction transaction = new Transaction(nextId++, description, amount, type, category, paymentMethod);
+    public IncomeTransaction createIncomeTransaction(String description, BigDecimal amount,
+                                                     IncomeCategory category, Wallet paymentMethod) {
+        IncomeTransaction transaction = new IncomeTransaction(nextId, description, amount, category, paymentMethod);
         addTransaction(transaction);
+        nextId++;
+        return transaction;
+    }
+
+    public ExpenseTransaction createExpenseTransaction(String description, BigDecimal amount,
+                                                        ExpenseCategory category, Wallet paymentMethod) {
+        ExpenseTransaction transaction = new ExpenseTransaction(nextId, description, amount, category, paymentMethod);
+        addTransaction(transaction);
+        nextId++;
         return transaction;
     }
 
@@ -112,8 +115,8 @@ public class FinanceService {
     public Map<ExpenseCategory, BigDecimal> getExpensesByCategory() {
         Map<ExpenseCategory, BigDecimal> totals = new HashMap<>();
         for (Transaction transaction : transactions) {
-            if (transaction.getType() == TransactionType.EXPENSE && transaction.getCategory() instanceof ExpenseCategory) {
-                ExpenseCategory category = (ExpenseCategory) transaction.getCategory();
+            if (transaction instanceof ExpenseTransaction expenseTransaction) {
+                ExpenseCategory category = expenseTransaction.getCategory();
                 BigDecimal current = totals.getOrDefault(category, BigDecimal.ZERO);
                 totals.put(category, current.add(transaction.getAmount()));
             }
@@ -130,7 +133,6 @@ public class FinanceService {
 
         for (Transaction transaction : transactions) {
             if (transaction.getType() == TransactionType.EXPENSE
-                    && transaction.getCategory() instanceof ExpenseCategory
                     && transaction.getCategory() == category) {
                 total = total.add(transaction.getAmount());
             }
@@ -143,7 +145,6 @@ public class FinanceService {
 
         for (Transaction transaction : transactions) {
             if (transaction.getType() == TransactionType.INCOME
-                    && transaction.getCategory() instanceof IncomeCategory
                     && transaction.getCategory() == category) {
                 total = total.add(transaction.getAmount());
             }

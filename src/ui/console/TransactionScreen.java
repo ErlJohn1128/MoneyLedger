@@ -2,7 +2,7 @@ package ui.console;
 
 import model.ExpenseCategory;
 import model.IncomeCategory;
-import model.MoneyCategory;
+import model.TransactionCategory;
 import model.Wallet;
 import model.TransactionType;
 import service.FinanceService;
@@ -58,7 +58,7 @@ public class TransactionScreen {
         
 
         int categoryChoice = input.readInt("Category: ");
-        MoneyCategory category;
+        TransactionCategory category;
 
         if (type == TransactionType.EXPENSE) {
             try {
@@ -94,7 +94,13 @@ public class TransactionScreen {
         }
 
         try {
-            financeService.createTransaction(description, amount, type, category, paymentMethod);
+            if (category instanceof ExpenseCategory expenseCategory) {
+                financeService.createExpenseTransaction(description, amount, expenseCategory, paymentMethod);
+            } else if (category instanceof IncomeCategory incomeCategory) {
+                financeService.createIncomeTransaction(description, amount, incomeCategory, paymentMethod);
+            } else {
+                throw new IllegalStateException("Unsupported transaction category.");
+            }
             System.out.println("Transaction added successfully.");
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());

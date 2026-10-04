@@ -2,7 +2,6 @@ package ui.console;
 
 import model.Budget;
 import model.ExpenseCategory;
-import model.MoneyCategory;
 import service.FinanceService;
 
 import java.math.BigDecimal;
@@ -37,10 +36,7 @@ public class BudgetUI {
         }
     }
 
-    public void addBudget(MoneyCategory category, BigDecimal limit) {
-        if (!(category instanceof ExpenseCategory expenseCategory)) {
-            throw new IllegalArgumentException("Only expense categories can have budgets.");
-        }
-        financeService.addBudget(new Budget(expenseCategory, limit));
+    public void addBudget(ExpenseCategory category, BigDecimal limit) {
+        financeService.addBudget(new Budget(category, limit));
     }
 }

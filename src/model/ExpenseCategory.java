@@ -1,7 +1,7 @@
 package model;
 
-// This implements MoneyCategory for dynamic dispatch
-public enum ExpenseCategory implements MoneyCategory {
+// This implements TransactionCategory for dynamic dispatch
+public enum ExpenseCategory implements TransactionCategory {
 
     // Types of possiblie expense category for users
     FOOD("Food"),
