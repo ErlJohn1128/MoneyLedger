@@ -11,7 +11,7 @@ public class ConsoleDashboard {
         this.financeService = financeService;
     }
 
-    public void display() {
+    public void displayDashboard() {
 
         // Calls on financeService methods to display it
         BigDecimal income = financeService.getTotalIncome();

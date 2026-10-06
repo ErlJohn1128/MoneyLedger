@@ -49,7 +49,7 @@ public class ConsoleMenu {
     private void handleChoice(int choice) {
         switch (choice) {
             case 1:
-                dashboard.display();
+                dashboard.displayDashboard();
                 input.pause();
                 break;
             case 2:

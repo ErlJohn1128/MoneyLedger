@@ -17,6 +17,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/* 
+    This is the file, the logic of my application. The main features are
+    addTransaction to the List, and the generations of reports.
+*/
 public class FinanceService {
     private final List<Transaction> transactions = new ArrayList<>();
     private final List<Budget> budgets = new ArrayList<>();

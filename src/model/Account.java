@@ -26,6 +26,7 @@ public class Account {
         return balance;
     }
 
+    // Soon to be implemented, to track balance in different wallet
     public void deposit(BigDecimal amount) {
         if (amount == null || amount.signum() <= 0) {
             throw new IllegalArgumentException("Deposit amount must be greater than zero.");
