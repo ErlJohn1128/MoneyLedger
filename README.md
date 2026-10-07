@@ -27,3 +27,5 @@ ui/ contains the UI for the application, inside is console/ and gui/
 `TransactionType` describes whether a transaction is income or expense, while `IncomeCategory` and `ExpenseCategory` describe the source or purpose. They are separate concepts; the typed transaction subclasses ensure that an income transaction cannot be created with an expense category.
 
 Thank you
+
+The diagram can be found here: https://drive.google.com/file/d/1Y5AZRuI9DPAGbZnGucgRVSqvKlzpJBDW/view?usp=sharing
