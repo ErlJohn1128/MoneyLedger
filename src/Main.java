@@ -1,8 +1,9 @@
 import ui.console.ConsoleMenu;
 
 public class Main {
-
-    public static void main(String[] args) {
+    
+    // Throws exception
+    public static void main(String[] args) throws Exception {
         ConsoleMenu menu = new ConsoleMenu();
         menu.start();
     }

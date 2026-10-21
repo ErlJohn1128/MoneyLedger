@@ -48,16 +48,18 @@ public class FinanceService {
     }
 
     // Creates transaction, uses addTransaction as helper function
-    public IncomeTransaction createIncomeTransaction(String description, BigDecimal amount,
-                                                     IncomeCategory category, Wallet paymentMethod) {
+    public IncomeTransaction createIncomeTransaction(String description, BigDecimal amount, IncomeCategory category, 
+        Wallet paymentMethod) 
+    {
         IncomeTransaction transaction = new IncomeTransaction(nextId, description, amount, category, paymentMethod);
         addTransaction(transaction);
         nextId++;
         return transaction;
     }
 
-    public ExpenseTransaction createExpenseTransaction(String description, BigDecimal amount,
-                                                        ExpenseCategory category, Wallet paymentMethod) {
+    public ExpenseTransaction createExpenseTransaction(String description, BigDecimal amount, ExpenseCategory category,
+        Wallet paymentMethod) 
+    {
         ExpenseTransaction transaction = new ExpenseTransaction(nextId, description, amount, category, paymentMethod);
         addTransaction(transaction);
         nextId++;
